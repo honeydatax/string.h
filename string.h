@@ -6,7 +6,7 @@ int ucase(char *s);
 int lcase(char *s);
 int findchar(char *s,char c);
 int strnfill(char *s1,char c,int size);
-
+int incmp(char *s,char *s2);
 
 int strslen(char *s){
 	int pos=0;
@@ -86,3 +86,18 @@ int strnfill(char *s1,char c,int size){
 	return pos;
 }
 
+int incmp(char *s,char *s2){
+	int pos=0;
+	int exit=0;
+	int cmp=0;
+	while(exit!=1){
+		if(s[pos]!=s2[pos]){
+			if(s[pos]>s2[pos])cmp=1;
+			if(s[pos]<s2[pos])cmp=-1;
+			if(s2[pos]==0)cmp=0;
+			exit=1;
+		}
+		pos++;
+	}
+	return cmp;
+}
