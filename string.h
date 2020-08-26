@@ -4,8 +4,8 @@ int strncopy(char *s1,char *s2,int size);
 int strcat(char *s1,char *s2);
 int ucase(char *s);
 int lcase(char *s);
-int findcahr(char *s,char c);
-
+int findchar(char *s,char c);
+int strnfill(char *s1,char c,int size);
 
 
 int strslen(char *s){
@@ -66,7 +66,7 @@ int ucase(char *s){
 }
 
 
-int findcahr(char *s,char c){
+int findchar(char *s,char c){
 	int pos=0;
 	while(s[pos]!=0 && s[pos]!=c){
 		pos++;
@@ -76,4 +76,13 @@ int findcahr(char *s,char c){
 }
 
 
+
+int strnfill(char *s1,char c,int size){
+	int pos=0;
+	while(pos<=size){
+		s1[pos]=c;
+		pos++;
+	}
+	return pos;
+}
 
