@@ -7,6 +7,8 @@ int lcase(char *s);
 int findchar(char *s,char c);
 int strnfill(char *s1,char c,int size);
 int incmp(char *s,char *s2);
+int strsfills(char *s,char c);
+
 
 int strslen(char *s){
 	int pos=0;
@@ -101,3 +103,14 @@ int incmp(char *s,char *s2){
 	}
 	return cmp;
 }
+
+
+int strsfills(char *s,char c){
+	int pos=0;
+	while(s[pos]!=0){
+		s[pos]=c;
+		pos++;
+	}
+	return pos;
+}
+
