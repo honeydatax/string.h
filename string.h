@@ -1,3 +1,5 @@
+#include <stdarg.h>
+
 int strslen(char *s);
 int strcopy(char *s1,char *s2);
 int strncopy(char *s1,char *s2,int size);
@@ -12,6 +14,8 @@ void strsint(char *s,int n);
 void strslong(char *s,long n);
 void strsfloat(char *s,float n);
 void strsdouble(char *s,double n);
+int ssprintf(char *stringss,char *format,int num, ... );
+
 
 int strslen(char *s){
 	int pos=0;
@@ -221,3 +225,77 @@ void strsdouble(char *s,double n){
 	}
 	s[pos+pos2]=0;
 }
+
+
+int ssprintf(char *stringss,char *format,int num, ... ){
+	va_list arguments;
+	char sssss[32];
+	int ar0;
+	long ar1;
+	float ar2;
+	double ar3;
+	char *sss;
+	char *ssss;
+	int nums=0;
+	int count=0;
+	int pos=0;
+	int pos2=0;
+	int shift=0;
+	int shift2=0;
+	stringss[0]=0;
+	ar0=0;
+	ar1=0;
+	ar2=0.00f;
+	ar3=0.00f;
+
+	va_start(arguments,num);
+	while(format[pos]!=0){
+		if(shift==0){
+			if(format[pos]!='%'){
+				stringss[pos2]=format[pos];
+				pos2++;
+				stringss[pos2]=0;
+				shift=0;
+			}else{
+				shift=1;
+			}
+		}else{
+			if(format[pos]=='s'){
+				sss=va_arg(arguments,char *);
+				strcat(stringss,sss);
+				pos2=strslen(stringss);
+			} 
+			if(format[pos]=='d'){
+				ar0=va_arg(arguments,int);
+				strsint(sssss,ar0);
+				strcat(stringss,sssss);
+				pos2=strslen(stringss);
+			} 
+			if(format[pos]=='l'){
+				ar1=va_arg(arguments,long);
+				strslong(sssss,ar1);
+				strcat(stringss,sssss);
+				pos2=strslen(stringss);
+			} 
+			if(format[pos]=='f'){
+				ar2=(float) va_arg(arguments,double);
+				strsfloat(sssss,ar2);
+				strcat(stringss,sssss);
+				pos2=strslen(stringss);
+			} 
+			if(format[pos]=='F'){
+				ar3=va_arg(arguments,double);
+				strsdouble(sssss,ar3);
+				strcat(stringss,sssss);
+				pos2=strslen(stringss);
+			} 
+			shift=0;
+
+		}
+		pos++;
+	}
+	va_end(arguments);
+	return pos;
+}
+
+
