@@ -8,7 +8,7 @@ int findchar(char *s,char c);
 int strnfill(char *s1,char c,int size);
 int incmp(char *s,char *s2);
 int strsfills(char *s,char c);
-
+void strsint(char *s,int n);
 
 int strslen(char *s){
 	int pos=0;
@@ -114,3 +114,23 @@ int strsfills(char *s,char c){
 	return pos;
 }
 
+void strsint(char *s,int n){
+	int nn=n;
+	int pos=0;
+	int signals=0x7fff;
+	int divsb=10000;
+	int divsa=0;
+	nn=signals & nn;
+	signals++;
+	signals=signals & n;
+	s[pos]='+';
+	if(signals!=0)s[pos]='-';
+	for(pos=0;pos<5;pos++){
+		divsa=nn/divsb;
+		divsa=divsa+'0';
+		s[pos+1]=(char) divsa;
+		nn=nn % divsb;
+		divsb=divsb/10;
+	}
+	s[pos+1]=0;
+}
