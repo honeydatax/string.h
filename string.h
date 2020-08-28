@@ -9,6 +9,8 @@ int strnfill(char *s1,char c,int size);
 int incmp(char *s,char *s2);
 int strsfills(char *s,char c);
 void strsint(char *s,int n);
+void strslong(char *s,long n);
+
 
 int strslen(char *s){
 	int pos=0;
@@ -134,3 +136,26 @@ void strsint(char *s,int n){
 	}
 	s[pos+1]=0;
 }
+
+
+void strslong(char *s,long n){
+	long nn=n;
+	long pos=0;
+	long signals=0x7fffffff;
+	long divsb=1000000000;
+	long divsa=0;
+	nn=signals & nn;
+	signals++;
+	signals=signals & n;
+	s[pos]='+';
+	if(signals!=0)s[pos]='-';
+	for(pos=0;pos<10;pos++){
+		divsa=nn/divsb;
+		divsa=divsa+'0';
+		s[pos+1]=(char) divsa;
+		nn=nn % divsb;
+		divsb=divsb/10;
+	}
+	s[pos+1]=0;
+}
+
