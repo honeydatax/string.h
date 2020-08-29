@@ -22,6 +22,8 @@ void paraleleadd(char *c0,char *c1,char *c2);
 void paraleleclear(char *c0);
 void paralelecopy(char *c0,char *c1);
 void paralelemul(char *c0,char *c1,char *c2);
+char cmpint64(char *c0,char *c1);
+
 
 int strslen(char *s){
 	int pos=0;
@@ -479,5 +481,21 @@ void paralelemul(char *c0,char *c1,char *c2){
 	}
 	paraleleclear(c0);
 	paralelecopy(c0,c3);	
+}
+
+char cmpint64(char *c0,char *c1){
+	int i=0;
+	char r=0;
+	for(i=0;i<8;i++){
+		if(c0[i]>c1[i]){
+			r=1;
+			i=10;
+		}
+		if(c0[i]<c1[i]){
+			r=-1;
+			i=10;
+		}
+	}
+	return r;
 }
 
