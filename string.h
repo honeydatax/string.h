@@ -23,7 +23,8 @@ void paraleleclear(char *c0);
 void paralelecopy(char *c0,char *c1);
 void paralelemul(char *c0,char *c1,char *c2);
 char cmpint64(char *c0,char *c1);
-
+void div256(char *c0);
+void mul256(char *c0);
 
 int strslen(char *s){
 	int pos=0;
@@ -499,3 +500,18 @@ char cmpint64(char *c0,char *c1){
 	return r;
 }
 
+void mul256(char *c0){
+	int i=0;
+	for(i=30;i>-1;i--){
+		c0[i+1]=c0[i];
+	}
+	c0[0]=0;
+}
+
+void div256(char *c0){
+	int i=0;
+	for(i=0;i<31;i++){
+		c0[i]=c0[i+1];
+	}
+	c0[32]=0;
+}
