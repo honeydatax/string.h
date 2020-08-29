@@ -14,6 +14,7 @@ void strsint(char *s,int n);
 void strslong(char *s,long n);
 void strsfloat(char *s,float n);
 void strsdouble(char *s,double n);
+void strshex(char *s,long n);
 int ssprintf(char *stringss,char *format,int num, ... );
 
 
@@ -226,6 +227,21 @@ void strsdouble(char *s,double n){
 	s[pos+pos2]=0;
 }
 
+void strshex(char *s,long n){
+	long nn=n;
+	long pos=8;
+	long divsa=0;
+	long signals=0x10;
+	long signals2=0xf;
+	char *digits="0123456789ABCDEF0123456789ABCDEF";
+	s[pos]=0;
+	for(pos=7;pos>-1;pos--){
+		divsa=nn & signals2;
+		s[pos]=(char) digits[(int)divsa];
+		nn=nn/signals;
+	}
+}
+
 
 int ssprintf(char *stringss,char *format,int num, ... ){
 	va_list arguments;
@@ -286,6 +302,12 @@ int ssprintf(char *stringss,char *format,int num, ... ){
 			if(format[pos]=='F'){
 				ar3=va_arg(arguments,double);
 				strsdouble(sssss,ar3);
+				strcat(stringss,sssss);
+				pos2=strslen(stringss);
+			} 
+			if(format[pos]=='x' || format[pos]=='X'){
+				ar3=va_arg(arguments,long);
+				strshex(sssss,ar3);
 				strcat(stringss,sssss);
 				pos2=strslen(stringss);
 			} 
