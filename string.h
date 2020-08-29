@@ -242,6 +242,23 @@ void strshex(char *s,long n){
 	}
 }
 
+void strsoct(char *s,long n){
+	long nn=n;
+	long pos=32;
+	long divsa=0;
+	long signals=8;
+	long signals2=7;
+	char *digits="0123456789ABCDEF0123456789ABCDEF";
+	s[pos]=0;
+	for(pos=pos-1;pos>-1;pos--){
+		divsa=nn & signals2;
+		s[pos]=(char) digits[(int)divsa];
+		nn=nn/signals;
+	}
+}
+
+
+
 
 int ssprintf(char *stringss,char *format,int num, ... ){
 	va_list arguments;
@@ -311,6 +328,13 @@ int ssprintf(char *stringss,char *format,int num, ... ){
 				strcat(stringss,sssss);
 				pos2=strslen(stringss);
 			} 
+			if(format[pos]=='o' || format[pos]=='O'){
+				ar3=va_arg(arguments,long);
+				strsoct(sssss,ar3);
+				strcat(stringss,sssss);
+				pos2=strslen(stringss);
+			} 
+
 			shift=0;
 
 		}
