@@ -415,4 +415,20 @@ void paraleleadd(char *c0,char *c1,char *c2){
 }
 
 
+void paralelesub(char *c0,char *c1,char *c2){
+	int i=0;
+	int ii=0;
+	int iii=0;
+	int carry=0;
+	for(i=0;i<8;i++){
+		ii=c1[i];
+		iii=c2[i];
+		ii=ii-carry-iii;
+		carry=0;
+		if(ii<0)carry++;
+		c0[i]=(char)ii;
+	}
+}
+
+
 
