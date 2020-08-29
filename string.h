@@ -19,7 +19,9 @@ void strsoct(char *s,long n);
 int ssprintf(char *stringss,char *format,int num, ... );
 void strsbin(char *s,long n);
 void paraleleadd(char *c0,char *c1,char *c2);
-
+void paraleleclear(char *c0);
+void paralelecopy(char *c0,char *c1);
+void paralelemul(char *c0,char *c1,char *c2);
 
 int strslen(char *s){
 	int pos=0;
@@ -431,4 +433,51 @@ void paralelesub(char *c0,char *c1,char *c2){
 }
 
 
+void paraleleclear(char *c0){
+	int i=0;
+	for(i=0;i<32;i++)c0[i]=0;
+}
+
+void paralelecopy(char *c0,char *c1){
+	int i=0;
+	for(i=0;i<32;i++){
+		c0[i]=c1[i];
+	}
+}
+
+void paralelemul(char *c0,char *c1,char *c2){
+	int i=0;
+	int i1=0;
+	int i2=0;
+	int i3=0;
+	int ii3=0;
+	int ii=0;
+	int iii=0;
+	int carry=0;
+	char c3[35];
+	char c4[35];
+	char c5[35];
+	paraleleclear(c3);
+	paraleleclear(c4);
+	paraleleclear(c5);
+
+	for(i=0;i<8;i++){
+		paraleleclear(c4);
+		paralelecopy(c4,c3);
+		paraleleclear(c3);
+		paraleleclear(c5);
+		ii3=c2[i];
+		for(i1=0;i1<8;i1++){
+			iii=c1[i1];
+			ii=ii3*iii+carry;
+			carry=0;
+			if(ii>255)carry=ii;
+			carry=carry/256;
+			c5[i1+i]=(char)ii;
+		}
+		paraleleadd(c3,c4,c5);
+	}
+	paraleleclear(c0);
+	paralelecopy(c0,c3);	
+}
 
