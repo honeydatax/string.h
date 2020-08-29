@@ -18,6 +18,8 @@ void strshex(char *s,long n);
 void strsoct(char *s,long n);
 int ssprintf(char *stringss,char *format,int num, ... );
 void strsbin(char *s,long n);
+void paraleleadd(char *c0,char *c1,char *c2);
+
 
 int strslen(char *s){
 	int pos=0;
@@ -243,6 +245,23 @@ void strshex(char *s,long n){
 	}
 }
 
+void strs4(char *s,long n){
+	long nn=n;
+	long pos=32;
+	long divsa=0;
+	long signals=4;
+	long signals2=3;
+	char *digits="0123456789ABCDEF0123456789ABCDEF";
+	s[pos]=0;
+	for(pos=pos-1;pos>-1;pos--){
+		divsa=nn & signals2;
+		if(divsa<0)divsa=0-divsa;
+		s[pos]=(char) digits[(int)divsa];
+		nn=nn/signals;
+	}
+}
+
+
 void strsoct(char *s,long n){
 	long nn=n;
 	long pos=11;
@@ -379,5 +398,21 @@ int ssprintf(char *stringss,char *format,int num, ... ){
 	va_end(arguments);
 	return pos;
 }
+
+void paraleleadd(char *c0,char *c1,char *c2){
+	int i=0;
+	int ii=0;
+	int iii=0;
+	int carry=0;
+	for(i=0;i<8;i++){
+		ii=c1[i];
+		iii=c2[i];
+		ii=ii+iii+carry;
+		carry=0;
+		if(ii>255)carry++;
+		c0[i]=(char)ii;
+	}
+}
+
 
 
