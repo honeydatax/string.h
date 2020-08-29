@@ -487,14 +487,14 @@ void paralelemul(char *c0,char *c1,char *c2){
 char cmpint64(char *c0,char *c1){
 	int i=0;
 	char r=0;
-	for(i=0;i<8;i++){
+	for(i=7;i>-1;i--){
 		if(c0[i]>c1[i]){
 			r=1;
-			i=10;
+			i=-2;
 		}
 		if(c0[i]<c1[i]){
-			r=-1;
-			i=10;
+			r=255;
+			i=-2;
 		}
 	}
 	return r;
@@ -515,3 +515,43 @@ void div256(char *c0){
 	}
 	c0[32]=0;
 }
+
+
+char paraleleentry(char *c0,char *c1){
+	long long int l0=0;
+	int i=0;
+	int pos=0;
+	char r=0;
+	char rr=0;
+	char c3[35];
+	paraleleclear(c3);
+	
+	for(i=0;i<8;i++){
+		r=(char) i;
+		if(c0[7-i]!=0){
+			c3[0]=c0[7-i];
+			i=10;
+
+		}
+		
+	}
+	rr=r;
+	if(rr!=7){
+		for(i=(int)rr;i<8;i++){
+			if(cmpint64(c3,c1)==255){
+				mul256(c3);
+				c3[0]=c0[7-i];
+				r=i;
+			}else{
+				
+				i=10;
+			}
+		}
+	}
+	
+	paraleleclear(c0);
+	paralelecopy(c0,c3);
+	return r;
+}
+
+
