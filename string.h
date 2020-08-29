@@ -15,8 +15,9 @@ void strslong(char *s,long n);
 void strsfloat(char *s,float n);
 void strsdouble(char *s,double n);
 void strshex(char *s,long n);
+void strsoct(char *s,long n);
 int ssprintf(char *stringss,char *format,int num, ... );
-
+void strsbin(char *s,long n);
 
 int strslen(char *s){
 	int pos=0;
@@ -244,7 +245,7 @@ void strshex(char *s,long n){
 
 void strsoct(char *s,long n){
 	long nn=n;
-	long pos=32;
+	long pos=11;
 	long divsa=0;
 	long signals=8;
 	long signals2=7;
@@ -252,10 +253,28 @@ void strsoct(char *s,long n){
 	s[pos]=0;
 	for(pos=pos-1;pos>-1;pos--){
 		divsa=nn & signals2;
+		if(divsa<0)divsa=0-divsa;
 		s[pos]=(char) digits[(int)divsa];
 		nn=nn/signals;
 	}
 }
+
+void strsbin(char *s,long n){
+	long nn=n;
+	long pos=32;
+	long divsa=0;
+	long signals=2;
+	long signals2=1;
+	char *digits="0123456789ABCDEF0123456789ABCDEF";
+	s[pos]=0;
+	for(pos=pos-1;pos>-1;pos--){
+		divsa=nn & signals2;
+		if(divsa<0)divsa=0-divsa;
+		s[pos]=(char) digits[(int)divsa];
+		nn=nn/signals;
+	}
+}
+
 
 
 
@@ -334,6 +353,23 @@ int ssprintf(char *stringss,char *format,int num, ... ){
 				strcat(stringss,sssss);
 				pos2=strslen(stringss);
 			} 
+
+		if(format[pos]=='4'){
+				ar3=va_arg(arguments,long);
+				strs4(sssss,ar3);
+				strcat(stringss,sssss);
+				pos2=strslen(stringss);
+		} 
+
+		if(format[pos]=='b'){
+				ar3=va_arg(arguments,long);
+				strsbin(sssss,ar3);
+				strcat(stringss,sssss);
+				pos2=strslen(stringss);
+		} 
+
+
+
 
 			shift=0;
 
